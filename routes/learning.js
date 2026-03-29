@@ -93,13 +93,20 @@ router.get(
   authorize("learner", "candidate"),
   async (req, res) => {
     try {
-      const sessions = await sequelize.query(
-        `SELECT id, start_time, end_time, duration_minutes, reflection_text, date
-       FROM learning_sessions
-       WHERE user_id = :userId AND date = CURRENT_DATE
-       ORDER BY start_time DESC`,
-        { replacements: { userId: req.user.id }, type: QueryTypes.SELECT },
-      );
+      const sessions = await LearningSession.findAll({
+        where: {
+          user_id: req.user.id,
+        },
+        attributes: [
+          "id",
+          "start_time",
+          "end_time",
+          "duration_minutes",
+          "reflection_text",
+          "date",
+        ],
+        order: [["start_time", "DESC"]],
+      });
 
       const totalMinutes = sessions.reduce(
         (sum, s) => sum + (s.duration_minutes || 0),

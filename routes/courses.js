@@ -81,7 +81,7 @@ router.post(
 );
 
 // Get all courses (filtered by difficulty/archetype)
-router.get("/:", authenticateToken, async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   try {
     const { difficulty, archetype, is_published } = req.query;
 
