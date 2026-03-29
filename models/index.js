@@ -14,13 +14,15 @@ const sequelize = new Sequelize(
       max: 20,
       min: 0,
       idle: 30000,
-      acquire: 2000,
+      acquire: 60000,
+      evict: 10000,
     },
     dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: false,
       },
+      connectTimeout: 60000,
     },
   },
 );
