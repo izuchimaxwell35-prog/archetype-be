@@ -53,7 +53,7 @@ app.get("/health", (req, res) => {
     environment: process.env.NODE_ENV,
   });
 });
-
+app.options("*", cors()); // Handle preflight for all routes
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/learning", learningRoutes);
