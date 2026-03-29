@@ -24,14 +24,20 @@ const assignmentRoutes = require("./routes/assignments");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(helmet()); // Security headers
+// Enable CORS
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:5173", "https://archetypeos-hpdg.vercel.app"], // Replace with your frontend URLs
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true, // Allow cookies/auth headers
+    allowedHeaders: ["Content-Type", "Authorization"], // Explicitly allow these headers
   }),
-); // Enable CORS
+);
+
+// Middleware
+app.use(helmet()); // Security headers
+// Enable CORS
+
 app.use(morgan("combined")); // Logging
 app.use(express.json({ limit: "10mb" })); // JSON parser
 app.use(express.urlencoded({ extended: true }));
